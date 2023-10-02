@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "lint": "eslint --fix",
+    "stylelint": "stylelint '**/*.css'",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -21,6 +22,8 @@
     "eslint-config-prettier": "9.0.0",
     "eslint-config-standard": "17.1.0",
     "prettier": "3.0.3",
+    "stylelint": "15.10.3",
+    "stylelint-config-standard": "34.0.0",
     "typescript": "5.2.2"
   }
 }
