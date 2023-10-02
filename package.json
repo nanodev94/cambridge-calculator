@@ -2,11 +2,13 @@
   "name": "cambridge-calculator",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
   "scripts": {
     "lint": "eslint --fix",
     "stylelint": "stylelint '**/*.css'",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
   },
   "keywords": [],
   "author": "",
@@ -25,5 +27,24 @@
     "stylelint": "15.10.3",
     "stylelint-config-standard": "34.0.0",
     "typescript": "5.2.2"
+  },
+  "dependencies": {
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-icons-kit": "2.0.0",
+    "react-redux": "8.1.3",
+    "redux": "4.2.1"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }
