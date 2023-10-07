@@ -1,5 +1,4 @@
 {
-  "plugins": ["stylelint-scss"],
   "extends": ["stylelint-config-standard"],
   "rules": {
     "declaration-block-single-line-max-declarations": 1,
@@ -7,19 +6,11 @@
     "declaration-property-value-no-unknown": true,
     "length-zero-no-unit": true,
     "no-unknown-animations": true,
-    "no-unknown-custom-properties": true,
     "custom-media-pattern": null,
     "custom-property-pattern": null,
     "keyframes-name-pattern": null,
     "selector-class-pattern": null,
     "selector-id-pattern": null,
-
-    "scss/at-each-key-value-single-line": true,
-    "scss/at-use-no-unnamespaced": true,
-    "scss/dollar-variable-first-in-block": true,
-    "scss/function-no-unknown": true,
-    "scss/selector-no-redundant-nesting-selector": true,
-    "scss/no-duplicate-dollar-variables": true,
-    "scss/no-duplicate-mixins": true
+    "property-no-vendor-prefix": null
   }
 }

@@ -1,0 +1,84 @@
+.label {
+  display: flex;
+  align-items: flex-start;
+  position: absolute;
+  width: 100%;
+  min-height: 1.5%;
+
+  & div {
+    border-style: solid;
+    border-width: 9px 9px 9px 0;
+    width: 0;
+    height: 0;
+  }
+
+  & span {
+    user-select: none;
+    font-size: 16px;
+    font-weight: bold;
+    overflow: hidden;
+    padding-left: 5px;
+    text-transform: capitalize;
+    width: 90%;
+  }
+
+  @media screen and (width < 550px) {
+    & div {
+      border-width: 6.67px 6.67px 6.67px 0;
+    }
+
+    & span {
+      font-size: 10px;
+    }
+  }
+}
+
+.tagReading {
+  & div {
+    border-color: transparent var(--tag-reading) transparent transparent;
+  }
+
+  & span {
+    background-color: var(--tag-reading);
+  }
+}
+
+.tagUseOfEnglish {
+  & div {
+    border-color: transparent var(--tag-use-of-english) transparent transparent;
+  }
+
+  & span {
+    background-color: var(--tag-use-of-english);
+  }
+}
+
+.tagWriting {
+  & div {
+    border-color: transparent var(--tag-writing) transparent transparent;
+  }
+
+  & span {
+    background-color: var(--tag-writing);
+  }
+}
+
+.tagListening {
+  & div {
+    border-color: transparent var(--tag-listening) transparent transparent;
+  }
+
+  & span {
+    background-color: var(--tag-listening);
+  }
+}
+
+.tagSpeaking {
+  & div {
+    border-color: transparent var(--tag-speaking) transparent transparent;
+  }
+
+  & span {
+    background-color: var(--tag-speaking);
+  }
+}

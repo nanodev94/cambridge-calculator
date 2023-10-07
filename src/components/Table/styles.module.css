@@ -1,0 +1,57 @@
+.container {
+  border-collapse: collapse;
+  width: 100%;
+
+  & tr td {
+    width: 10%;
+  }
+
+  & tr td:first-child {
+    width: 60%;
+
+    & input {
+      color: black;
+      text-align: left;
+    }
+  }
+
+  @media screen and (width < 550px) {
+    font-size: 12px;
+  }
+}
+
+.field {
+  background-color: var(--row);
+  border: 2px solid black;
+  color: var(--mark-success);
+  font-weight: bold;
+  padding: 5px;
+  text-align: center;
+  width: 100%;
+
+  &[type='number'] {
+    -moz-appearance: textfield;
+  }
+
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  &:focus {
+    outline: 4px solid blue;
+  }
+
+  @media screen and (width < 550px) {
+    font-size: 10px;
+  }
+}
+
+.fieldError {
+  color: var(--mark-fail);
+}
+
+.rowSelected {
+  background-color: var(--row-selected);
+}

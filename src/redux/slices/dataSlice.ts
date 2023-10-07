@@ -1,9 +1,11 @@
 /* eslint-disable no-param-reassign */
-import type { RootState } from '@src/redux/store'
+import type { RootState } from '../store'
 import { type PayloadAction, createSlice } from '@reduxjs/toolkit'
+import type { Level, Subject } from '../../types'
 
-type StudentMarkKeys = 'name' | 'reading' | 'useOfEnglish' | 'writing' | 'listening' | 'speaking'
-interface StudentMarks {
+export type StudentMarkKeys = 'name' | Subject
+
+type StudentMarks = {
   name: string
   reading: number
   useOfEnglish: number
@@ -12,30 +14,18 @@ interface StudentMarks {
   speaking: number
 }
 
-type LevelKeys = 'A2' | 'B1' | 'B2' | 'C1' | 'C2'
-interface Levels {
-  A2: {
-    students: StudentMarks[]
-  }
-  B1: {
-    students: StudentMarks[]
-  }
-  B2: {
-    students: StudentMarks[]
-  }
-  C1: {
-    students: StudentMarks[]
-  }
-  C2: {
-    students: StudentMarks[]
-  }
+type DataState = {
+  tables: Record<
+    Level,
+    {
+      students: StudentMarks[]
+      selectedStudent: number
+    }
+  >
+  selectedTable: Level
 }
 
-interface DataState {
-  tables: Levels
-}
-
-const EMPTY_STUDENT = {
+const EMPTY_STUDENT: StudentMarks = {
   name: '',
   reading: 0,
   useOfEnglish: 0,
@@ -50,6 +40,7 @@ const initialState: DataState = {
     : {
         A2: {
           students: [EMPTY_STUDENT],
+          selectedStudent: 0,
         },
         B1: {
           students: [
@@ -110,17 +101,24 @@ const initialState: DataState = {
               speaking: 23,
             },
           ],
+          selectedStudent: 0,
         },
         B2: {
           students: [EMPTY_STUDENT],
+          selectedStudent: 0,
         },
         C1: {
           students: [EMPTY_STUDENT],
+          selectedStudent: 0,
         },
         C2: {
           students: [EMPTY_STUDENT],
+          selectedStudent: 0,
         },
       },
+  selectedTable: localStorage.getItem('selectedTable')
+    ? JSON.parse(localStorage.getItem('selectedTable') as string)
+    : 'B1',
 }
 
 export const dataSlice = createSlice({
@@ -128,11 +126,11 @@ export const dataSlice = createSlice({
   initialState,
   reducers: {
     reset: () => initialState,
-    addStudent: (state, action: PayloadAction<{ table: LevelKeys }>) => {
+    addStudent: (state, action: PayloadAction<{ table: Level }>) => {
       const { table } = action.payload
       state.tables[table].students.push(EMPTY_STUDENT)
     },
-    removeStudent: (state, action: PayloadAction<{ table: LevelKeys; row: number }>) => {
+    removeStudent: (state, action: PayloadAction<{ table: Level; row: number }>) => {
       const { table, row } = action.payload
       const students = [...state.tables[table].students]
       students.splice(row, 1)
@@ -140,36 +138,60 @@ export const dataSlice = createSlice({
         students.push(EMPTY_STUDENT)
       }
       state.tables[table].students = students
+
+      if (state.tables[table].selectedStudent >= students.length) {
+        state.tables[table].selectedStudent = students.length - 1
+      }
     },
     updateStudent: (
       state,
-      action: PayloadAction<{ table: LevelKeys; row: number; data: StudentMarks }>,
+      action: PayloadAction<{ table: Level; row: number; data: StudentMarks }>,
     ) => {
       const { table, row, data } = action.payload
       state.tables[table].students[row] = data
     },
-    clearStudents: (state, action: PayloadAction<{ table: LevelKeys }>) => {
+    clearStudents: (state, action: PayloadAction<{ table: Level }>) => {
       const { table } = action.payload
       state.tables[table].students = [EMPTY_STUDENT]
+    },
+    setSelectedTable: (state, action: PayloadAction<{ table: Level }>) => {
+      const { table } = action.payload
+      state.selectedTable = table
+    },
+    setSelectedStudent: (state, action: PayloadAction<{ table: Level; row: number }>) => {
+      const { table, row } = action.payload
+      state.tables[table].selectedStudent = row
     },
   },
 })
 
-export const { addStudent, clearStudents, removeStudent, reset, updateStudent } = dataSlice.actions
+export const {
+  addStudent,
+  clearStudents,
+  removeStudent,
+  reset,
+  updateStudent,
+  setSelectedTable,
+  setSelectedStudent,
+} = dataSlice.actions
 
 export const selectTables = (state: RootState) => state.tables
 
-export const selectTable = (state: RootState, table: LevelKeys) => state.tables[table]
+export const selectTable = (state: RootState, table: Level) => state.tables[table]
 
-export const selectTableStudents = (state: RootState, table: LevelKeys) =>
-  state.tables[table].students
+export const selectTableStudents = (state: RootState, table: Level) => state.tables[table].students
 
-export const selectTableStudentMarks = (state: RootState, table: LevelKeys, row: number) =>
+export const selectTableStudentMarks = (state: RootState, table: Level, row: number) =>
   state.tables[table].students[row]
 
 export const selectTableStudentMark = (
   state: RootState,
-  table: LevelKeys,
+  table: Level,
   row: number,
   val: StudentMarkKeys,
 ) => state.tables[table].students[row][val]
+
+export const selectSelectedTable = (state: RootState) => state.selectedTable
+
+export const selectSelectedStudent = (state: RootState, table: Level) =>
+  state.tables[table].selectedStudent
