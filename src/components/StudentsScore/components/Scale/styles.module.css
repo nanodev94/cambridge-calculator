@@ -40,10 +40,6 @@
   & span {
     transform: rotateZ(-90deg);
   }
-
-  @media screen and (width < 550px) {
-    font-size: 10px;
-  }
 }
 
 .categorySelected {
@@ -85,12 +81,6 @@
   width: 50px;
   height: 50px;
   z-index: 1;
-
-  @media screen and (width < 550px) {
-    font-size: 14px;
-    width: 35px;
-    height: 35px;
-  }
 }
 
 .levelSelected {
@@ -140,4 +130,16 @@
   position: absolute;
   width: 93%;
   height: 0;
+}
+
+@media screen and (width < 550px) {
+  .category {
+    font-size: 10px;
+  }
+
+  .level {
+    font-size: 14px;
+    width: 35px;
+    height: 35px;
+  }
 }

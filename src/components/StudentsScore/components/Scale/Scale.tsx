@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react'
-import { useAppSelector } from '../../redux/hooks'
+import { useAppSelector } from '../../../../redux/hooks'
 import {
   selectSelectedStudent,
   selectSelectedTable,
   selectTableStudents,
-} from '../../redux/slices/dataSlice'
+} from '../../../../redux/slices/dataSlice'
 import TagLabel from './components/TagLabel'
 import styles from './styles.module.css'
-import { getCambridgeMark, getPercentages } from '../../utils'
+import { getCambridgeMark, getPercentages } from '../../../../utils'
 
 const {
   container,
@@ -40,7 +40,6 @@ const Scale: React.FC = () => {
   const [finalMark, setFinalMark] = useState(-1)
 
   useEffect(() => {
-    // Obtener puntuaciones del alumno
     const { reading, useOfEnglish, writing, listening, speaking } = getPercentages(
       table,
       data[selectedStudent].reading,
@@ -50,13 +49,12 @@ const Scale: React.FC = () => {
       data[selectedStudent].speaking,
     )
 
-    // Actualizar puntuaciones
     setReadingMark(getCambridgeMark(table, reading))
     setUseOfEnglishMark(getCambridgeMark(table, useOfEnglish))
     setWritingMark(getCambridgeMark(table, writing))
     setListeningMark(getCambridgeMark(table, listening))
     setSpeakingMark(getCambridgeMark(table, speaking))
-    // useOfEnglish no está en A2 y B1
+
     if (['A2', 'B1'].includes(table)) {
       setFinalMark(getCambridgeMark(table, (reading + writing + listening + speaking) / 4))
     } else {

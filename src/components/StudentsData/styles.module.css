@@ -1,0 +1,51 @@
+.container {
+  background-color: rgba(255 255 255 / 20%);
+  display: flex;
+  flex-direction: column;
+  width: 48%;
+}
+
+.tabsContainer {
+  border-bottom: 2px solid black;
+  display: flex;
+  overflow: scroll;
+
+  & span:first-child {
+    border-left: none;
+  }
+}
+
+.tab {
+  background-color: transparent;
+  border-left: 2px solid black;
+  cursor: pointer;
+  font-size: 20px;
+  font-weight: bold;
+  padding: 10px;
+  text-align: center;
+  width: 100%;
+  min-width: 30px;
+}
+
+.tabSelected {
+  background-color: rgba(255 0 0 / 80%);
+}
+
+.tabContent {
+  overflow: scroll;
+  margin-top: 10px;
+}
+
+@media screen and (width < 550px) {
+  .tab {
+    font-size: 15px;
+    padding: 8px;
+  }
+}
+
+@media screen and (width < 415px) {
+  .tab {
+    font-size: 12px;
+    padding: 5px;
+  }
+}

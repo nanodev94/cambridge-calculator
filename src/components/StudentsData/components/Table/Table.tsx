@@ -1,4 +1,4 @@
-import { useAppDispatch, useAppSelector } from '../../redux/hooks'
+import { useAppDispatch, useAppSelector } from '../../../../redux/hooks'
 import {
   updateStudent,
   selectTableStudents,
@@ -6,8 +6,8 @@ import {
   selectSelectedStudent,
   setSelectedStudent,
   selectSelectedTable,
-} from '../../redux/slices/dataSlice'
-import { CAMBRIDGE_POINTS, SUBJECTS } from '../../constants'
+} from '../../../../redux/slices/dataSlice'
+import { CAMBRIDGE_POINTS, SUBJECTS } from '../../../../constants'
 import styles from './styles.module.css'
 
 const { container, field, fieldError, rowSelected } = styles
@@ -37,7 +37,6 @@ const Table: React.FC = () => {
         <tr>
           {['Student', 'Reading', 'UseOfEn', 'Writing', 'Listening', 'Speaking'].map(
             (title, col) => {
-              // Ocultar columna useOfEnglish en categorías A2 y B1
               if (['A2', 'B1'].includes(table) && col === 2) {
                 return undefined
               }
@@ -49,7 +48,7 @@ const Table: React.FC = () => {
       <tbody>
         {data.map((rowData, row) => (
           <tr
-            key={`${rowData.name}-name`}
+            key={`${rowData.name}-name-${row}`}
             className={row === selectedStudent ? rowSelected : undefined}
           >
             <td>

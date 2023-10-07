@@ -1,7 +1,7 @@
 /* eslint-disable no-param-reassign */
-import type { RootState } from '../store'
+import { type RootState } from '../store'
 import { type PayloadAction, createSlice } from '@reduxjs/toolkit'
-import type { Level, Subject } from '../../types'
+import { type Level, type Subject } from '../../types'
 
 export type StudentMarkKeys = 'name' | Subject
 
@@ -153,6 +153,7 @@ export const dataSlice = createSlice({
     clearStudents: (state, action: PayloadAction<{ table: Level }>) => {
       const { table } = action.payload
       state.tables[table].students = [EMPTY_STUDENT]
+      state.tables[table].selectedStudent = 0
     },
     setSelectedTable: (state, action: PayloadAction<{ table: Level }>) => {
       const { table } = action.payload

@@ -1,36 +1,36 @@
-import { useAppDispatch, useAppSelector } from '../../redux/hooks'
+import { useAppDispatch, useAppSelector } from '../../../../redux/hooks'
 import {
   addStudent,
   removeStudent,
   clearStudents,
   selectSelectedTable,
   selectSelectedStudent,
-} from '../../redux/slices/dataSlice'
-import styles from './styles.module.css'
+} from '../../../../redux/slices/dataSlice'
+import Button from './components/Button'
 
 import { Icon } from 'react-icons-kit'
 import { userPlus } from 'react-icons-kit/fa/userPlus'
 import { userTimes } from 'react-icons-kit/fa/userTimes'
 import { trash } from 'react-icons-kit/fa/trash'
-import Button from './components/Button'
+import styles from './styles.module.css'
 
 const { container } = styles
 
 const FloatingMenu: React.FC = () => {
   const dispatch = useAppDispatch()
-  const table = useAppSelector(selectSelectedTable)
-  const selectedStudent = useAppSelector((state) => selectSelectedStudent(state, table))
+  const selectedTable = useAppSelector(selectSelectedTable)
+  const selectedStudent = useAppSelector((state) => selectSelectedStudent(state, selectedTable))
 
   const addNewStudent = () => {
-    dispatch(addStudent({ table }))
+    dispatch(addStudent({ table: selectedTable }))
   }
 
   const deleteStudent = () => {
-    dispatch(removeStudent({ table, row: selectedStudent }))
+    dispatch(removeStudent({ table: selectedTable, row: selectedStudent }))
   }
 
   const deleteAllStudents = () => {
-    dispatch(clearStudents({ table }))
+    dispatch(clearStudents({ table: selectedTable }))
   }
 
   return (

@@ -1,4 +1,4 @@
-.label {
+.container {
   display: flex;
   align-items: flex-start;
   position: absolute;
@@ -20,16 +20,6 @@
     padding-left: 5px;
     text-transform: capitalize;
     width: 90%;
-  }
-
-  @media screen and (width < 550px) {
-    & div {
-      border-width: 6.67px 6.67px 6.67px 0;
-    }
-
-    & span {
-      font-size: 10px;
-    }
   }
 }
 
@@ -80,5 +70,17 @@
 
   & span {
     background-color: var(--tag-speaking);
+  }
+}
+
+@media screen and (width < 550px) {
+  .container {
+    & div {
+      border-width: 6.67px 6.67px 6.67px 0;
+    }
+
+    & span {
+      font-size: 10px;
+    }
   }
 }
