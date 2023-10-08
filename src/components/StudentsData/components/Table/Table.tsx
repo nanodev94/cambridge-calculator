@@ -5,7 +5,7 @@ import {
   type StudentMarkKeys,
   selectSelectedStudent,
   setSelectedStudent,
-  selectSelectedTable,
+  selectSelectedLevel,
 } from '../../../../redux/slices/dataSlice'
 import { CAMBRIDGE_POINTS, SUBJECTS } from '../../../../constants'
 import styles from './styles.module.css'
@@ -14,21 +14,22 @@ const { container, field, fieldError, rowSelected } = styles
 
 const Table: React.FC = () => {
   const dispatch = useAppDispatch()
-  const table = useAppSelector(selectSelectedTable)
-  const data = useAppSelector((state) => selectTableStudents(state, table))
-  const selectedStudent = useAppSelector((state) => selectSelectedStudent(state, table))
+  const selectedLevel = useAppSelector(selectSelectedLevel)
+  const data = useAppSelector((state) => selectTableStudents(state, selectedLevel))
+  const selectedStudent = useAppSelector((state) => selectSelectedStudent(state, selectedLevel))
 
   const handleChange = (
     event: React.ChangeEvent<HTMLInputElement>,
     row: number,
     key: StudentMarkKeys,
   ) => {
-    const newVal = key === 'name' ? event.target.value : parseInt(event.target.value)
+    const newVal =
+      key === 'name' ? event.target.value : event.target.value ? parseInt(event.target.value) : ''
     const newData = {
       ...data[row],
       [key]: newVal,
     }
-    dispatch(updateStudent({ table, row, data: newData }))
+    dispatch(updateStudent({ level: selectedLevel, row, data: newData }))
   }
 
   return (
@@ -37,7 +38,7 @@ const Table: React.FC = () => {
         <tr>
           {['Student', 'Reading', 'UseOfEn', 'Writing', 'Listening', 'Speaking'].map(
             (title, col) => {
-              if (['A2', 'B1'].includes(table) && col === 2) {
+              if (['A2', 'B1'].includes(selectedLevel) && col === 2) {
                 return undefined
               }
               return <th key={col}>{title}</th>
@@ -60,15 +61,15 @@ const Table: React.FC = () => {
                   handleChange(e, row, 'name')
                 }}
                 onFocus={() => {
-                  dispatch(setSelectedStudent({ table, row }))
+                  dispatch(setSelectedStudent({ level: selectedLevel, row }))
                 }}
               />
             </td>
 
             {SUBJECTS.map((subject) => {
-              const success = rowData[subject] >= CAMBRIDGE_POINTS[table].minPoints[subject]
+              const success = rowData[subject] >= CAMBRIDGE_POINTS[selectedLevel].minPoints[subject]
 
-              if (['A2', 'B1'].includes(table) && subject === 'useOfEnglish') return null
+              if (['A2', 'B1'].includes(selectedLevel) && subject === 'useOfEnglish') return null
 
               return (
                 <td key={`${rowData.name}-${subject}`}>
@@ -80,7 +81,7 @@ const Table: React.FC = () => {
                       handleChange(e, row, subject)
                     }}
                     onFocus={() => {
-                      dispatch(setSelectedStudent({ table, row }))
+                      dispatch(setSelectedStudent({ level: selectedLevel, row }))
                     }}
                   />
                 </td>

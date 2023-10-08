@@ -1,5 +1,5 @@
 import { useAppDispatch, useAppSelector } from '../../redux/hooks'
-import { selectSelectedTable, selectTables, setSelectedTable } from '../../redux/slices/dataSlice'
+import { selectSelectedLevel, selectTables, setSelectedLevel } from '../../redux/slices/dataSlice'
 import { type Level } from '../../types'
 import Table from './components/Table'
 import styles from './styles.module.css'
@@ -9,26 +9,26 @@ const { container, tabsContainer, tab, tabSelected, tabContent } = styles
 const StudentsData: React.FC = () => {
   const dispatch = useAppDispatch()
   const tables = useAppSelector(selectTables)
-  const selectedTable = useAppSelector(selectSelectedTable)
+  const selectedLevel = useAppSelector(selectSelectedLevel)
 
-  const changeTable = (table: Level) => {
-    dispatch(setSelectedTable({ table }))
+  const changeLevel = (level: Level) => {
+    dispatch(setSelectedLevel({ level }))
   }
 
   return (
     <div className={container}>
       <div className={tabsContainer}>
-        {Object.keys(tables).map((table) => {
-          const isSelected = selectedTable === table
+        {Object.keys(tables).map((level) => {
+          const isSelected = selectedLevel === level
           return (
             <span
-              key={table}
+              key={level}
               className={`${tab} ${isSelected ? tabSelected : ''}`}
               onClick={() => {
-                changeTable(table as Level)
+                changeLevel(level as Level)
               }}
             >
-              {table}
+              {level}
             </span>
           )
         })}

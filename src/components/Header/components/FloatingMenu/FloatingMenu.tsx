@@ -3,7 +3,7 @@ import {
   addStudent,
   removeStudent,
   clearStudents,
-  selectSelectedTable,
+  selectSelectedLevel,
   selectSelectedStudent,
 } from '../../../../redux/slices/dataSlice'
 import Button from './components/Button'
@@ -18,19 +18,19 @@ const { container } = styles
 
 const FloatingMenu: React.FC = () => {
   const dispatch = useAppDispatch()
-  const selectedTable = useAppSelector(selectSelectedTable)
-  const selectedStudent = useAppSelector((state) => selectSelectedStudent(state, selectedTable))
+  const selectedLevel = useAppSelector(selectSelectedLevel)
+  const selectedStudent = useAppSelector((state) => selectSelectedStudent(state, selectedLevel))
 
   const addNewStudent = () => {
-    dispatch(addStudent({ table: selectedTable }))
+    dispatch(addStudent({ level: selectedLevel }))
   }
 
   const deleteStudent = () => {
-    dispatch(removeStudent({ table: selectedTable, row: selectedStudent }))
+    dispatch(removeStudent({ level: selectedLevel, row: selectedStudent }))
   }
 
   const deleteAllStudents = () => {
-    dispatch(clearStudents({ table: selectedTable }))
+    dispatch(clearStudents({ level: selectedLevel }))
   }
 
   return (

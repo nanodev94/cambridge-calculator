@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { useAppSelector } from '../../../../redux/hooks'
 import {
   selectSelectedStudent,
-  selectSelectedTable,
+  selectSelectedLevel,
   selectTableStudents,
 } from '../../../../redux/slices/dataSlice'
 import TagLabel from './components/TagLabel'
@@ -28,9 +28,9 @@ const {
 } = styles
 
 const Scale: React.FC = () => {
-  const table = useAppSelector(selectSelectedTable)
-  const data = useAppSelector((state) => selectTableStudents(state, table))
-  const selectedStudent = useAppSelector((state) => selectSelectedStudent(state, table))
+  const selectedLevel = useAppSelector(selectSelectedLevel)
+  const data = useAppSelector((state) => selectTableStudents(state, selectedLevel))
+  const selectedStudent = useAppSelector((state) => selectSelectedStudent(state, selectedLevel))
 
   const [readingMark, setReadingMark] = useState(-1)
   const [useOfEnglishMark, setUseOfEnglishMark] = useState(-1)
@@ -41,7 +41,7 @@ const Scale: React.FC = () => {
 
   useEffect(() => {
     const { reading, useOfEnglish, writing, listening, speaking } = getPercentages(
-      table,
+      selectedLevel,
       data[selectedStudent].reading,
       data[selectedStudent].useOfEnglish,
       data[selectedStudent].writing,
@@ -49,20 +49,23 @@ const Scale: React.FC = () => {
       data[selectedStudent].speaking,
     )
 
-    setReadingMark(getCambridgeMark(table, reading))
-    setUseOfEnglishMark(getCambridgeMark(table, useOfEnglish))
-    setWritingMark(getCambridgeMark(table, writing))
-    setListeningMark(getCambridgeMark(table, listening))
-    setSpeakingMark(getCambridgeMark(table, speaking))
+    setReadingMark(getCambridgeMark(selectedLevel, reading))
+    setUseOfEnglishMark(getCambridgeMark(selectedLevel, useOfEnglish))
+    setWritingMark(getCambridgeMark(selectedLevel, writing))
+    setListeningMark(getCambridgeMark(selectedLevel, listening))
+    setSpeakingMark(getCambridgeMark(selectedLevel, speaking))
 
-    if (['A2', 'B1'].includes(table)) {
-      setFinalMark(getCambridgeMark(table, (reading + writing + listening + speaking) / 4))
+    if (['A2', 'B1'].includes(selectedLevel)) {
+      setFinalMark(getCambridgeMark(selectedLevel, (reading + writing + listening + speaking) / 4))
     } else {
       setFinalMark(
-        getCambridgeMark(table, (reading + useOfEnglish + writing + listening + speaking) / 5),
+        getCambridgeMark(
+          selectedLevel,
+          (reading + useOfEnglish + writing + listening + speaking) / 5,
+        ),
       )
     }
-  }, [selectedStudent, data, table])
+  }, [selectedStudent, data, selectedLevel])
 
   const bottom = (finalMark - 80) * 0.662
 

@@ -4,6 +4,7 @@ import { type PayloadAction, createSlice } from '@reduxjs/toolkit'
 import { type Level, type Subject } from '../../types'
 
 export type StudentMarkKeys = 'name' | Subject
+export type SubjectsWithFinal = Subject | 'final'
 
 type StudentMarks = {
   name: string
@@ -20,9 +21,10 @@ type DataState = {
     {
       students: StudentMarks[]
       selectedStudent: number
+      selectedSubject: SubjectsWithFinal
     }
   >
-  selectedTable: Level
+  selectedLevel: Level
 }
 
 const EMPTY_STUDENT: StudentMarks = {
@@ -41,6 +43,7 @@ const initialState: DataState = {
         A2: {
           students: [EMPTY_STUDENT],
           selectedStudent: 0,
+          selectedSubject: 'final',
         },
         B1: {
           students: [
@@ -102,22 +105,26 @@ const initialState: DataState = {
             },
           ],
           selectedStudent: 0,
+          selectedSubject: 'final',
         },
         B2: {
           students: [EMPTY_STUDENT],
           selectedStudent: 0,
+          selectedSubject: 'final',
         },
         C1: {
           students: [EMPTY_STUDENT],
           selectedStudent: 0,
+          selectedSubject: 'final',
         },
         C2: {
           students: [EMPTY_STUDENT],
           selectedStudent: 0,
+          selectedSubject: 'final',
         },
       },
-  selectedTable: localStorage.getItem('selectedTable')
-    ? JSON.parse(localStorage.getItem('selectedTable') as string)
+  selectedLevel: localStorage.getItem('selectedLevel')
+    ? JSON.parse(localStorage.getItem('selectedLevel') as string)
     : 'B1',
 }
 
@@ -126,42 +133,49 @@ export const dataSlice = createSlice({
   initialState,
   reducers: {
     reset: () => initialState,
-    addStudent: (state, action: PayloadAction<{ table: Level }>) => {
-      const { table } = action.payload
-      state.tables[table].students.push(EMPTY_STUDENT)
+    addStudent: (state, action: PayloadAction<{ level: Level }>) => {
+      const { level } = action.payload
+      state.tables[level].students.push(EMPTY_STUDENT)
     },
-    removeStudent: (state, action: PayloadAction<{ table: Level; row: number }>) => {
-      const { table, row } = action.payload
-      const students = [...state.tables[table].students]
+    removeStudent: (state, action: PayloadAction<{ level: Level; row: number }>) => {
+      const { level, row } = action.payload
+      const students = [...state.tables[level].students]
       students.splice(row, 1)
       if (students.length === 0) {
         students.push(EMPTY_STUDENT)
       }
-      state.tables[table].students = students
+      state.tables[level].students = students
 
-      if (state.tables[table].selectedStudent >= students.length) {
-        state.tables[table].selectedStudent = students.length - 1
+      if (state.tables[level].selectedStudent >= students.length) {
+        state.tables[level].selectedStudent = students.length - 1
       }
     },
     updateStudent: (
       state,
-      action: PayloadAction<{ table: Level; row: number; data: StudentMarks }>,
+      action: PayloadAction<{ level: Level; row: number; data: StudentMarks }>,
     ) => {
-      const { table, row, data } = action.payload
-      state.tables[table].students[row] = data
+      const { level, row, data } = action.payload
+      state.tables[level].students[row] = data
     },
-    clearStudents: (state, action: PayloadAction<{ table: Level }>) => {
-      const { table } = action.payload
-      state.tables[table].students = [EMPTY_STUDENT]
-      state.tables[table].selectedStudent = 0
+    clearStudents: (state, action: PayloadAction<{ level: Level }>) => {
+      const { level } = action.payload
+      state.tables[level].students = [EMPTY_STUDENT]
+      state.tables[level].selectedStudent = 0
     },
-    setSelectedTable: (state, action: PayloadAction<{ table: Level }>) => {
-      const { table } = action.payload
-      state.selectedTable = table
+    setSelectedLevel: (state, action: PayloadAction<{ level: Level }>) => {
+      const { level } = action.payload
+      state.selectedLevel = level
     },
-    setSelectedStudent: (state, action: PayloadAction<{ table: Level; row: number }>) => {
-      const { table, row } = action.payload
-      state.tables[table].selectedStudent = row
+    setSelectedSubject: (
+      state,
+      action: PayloadAction<{ level: Level; subject: SubjectsWithFinal }>,
+    ) => {
+      const { level, subject } = action.payload
+      state.tables[level].selectedSubject = subject
+    },
+    setSelectedStudent: (state, action: PayloadAction<{ level: Level; row: number }>) => {
+      const { level, row } = action.payload
+      state.tables[level].selectedStudent = row
     },
   },
 })
@@ -172,27 +186,31 @@ export const {
   removeStudent,
   reset,
   updateStudent,
-  setSelectedTable,
+  setSelectedLevel,
+  setSelectedSubject,
   setSelectedStudent,
 } = dataSlice.actions
 
 export const selectTables = (state: RootState) => state.tables
 
-export const selectTable = (state: RootState, table: Level) => state.tables[table]
+export const selectTable = (state: RootState, level: Level) => state.tables[level]
 
-export const selectTableStudents = (state: RootState, table: Level) => state.tables[table].students
+export const selectTableStudents = (state: RootState, level: Level) => state.tables[level].students
 
-export const selectTableStudentMarks = (state: RootState, table: Level, row: number) =>
-  state.tables[table].students[row]
+export const selectTableStudentMarks = (state: RootState, level: Level, row: number) =>
+  state.tables[level].students[row]
 
 export const selectTableStudentMark = (
   state: RootState,
-  table: Level,
+  level: Level,
   row: number,
   val: StudentMarkKeys,
-) => state.tables[table].students[row][val]
+) => state.tables[level].students[row][val]
 
-export const selectSelectedTable = (state: RootState) => state.selectedTable
+export const selectSelectedLevel = (state: RootState) => state.selectedLevel
 
-export const selectSelectedStudent = (state: RootState, table: Level) =>
-  state.tables[table].selectedStudent
+export const selectSelectedSubject = (state: RootState, level: Level) =>
+  state.tables[level].selectedSubject
+
+export const selectSelectedStudent = (state: RootState, level: Level) =>
+  state.tables[level].selectedStudent

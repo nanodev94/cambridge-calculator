@@ -4,7 +4,7 @@ import {
   selectTableStudents,
   selectTables,
   selectSelectedStudent,
-  selectSelectedTable,
+  selectSelectedLevel,
 } from './redux/slices/dataSlice'
 import Header from './components/Header'
 import StudentsData from './components/StudentsData'
@@ -15,19 +15,18 @@ const { container, content } = styles
 
 const App: React.FC = () => {
   const tables = useAppSelector(selectTables)
-  const selectedTable = useAppSelector(selectSelectedTable)
-  const data = useAppSelector((state) => selectTableStudents(state, selectedTable))
-  const selectedStudent = useAppSelector((state) => selectSelectedStudent(state, selectedTable))
+  const selectedLevel = useAppSelector(selectSelectedLevel)
+  const data = useAppSelector((state) => selectTableStudents(state, selectedLevel))
+  const selectedStudent = useAppSelector((state) => selectSelectedStudent(state, selectedLevel))
 
   useEffect(() => {
-    localStorage.setItem('selectedTable', JSON.stringify(selectedTable))
-  }, [selectedTable])
+    localStorage.setItem('selectedLevel', JSON.stringify(selectedLevel))
+  }, [selectedLevel])
 
   useEffect(() => {
     localStorage.setItem('tables', JSON.stringify(tables))
   }, [data, selectedStudent])
 
-  // TODO: revisado Header completo. Falta StudentsData y StudentsScore
   return (
     <div className={container}>
       <Header />
