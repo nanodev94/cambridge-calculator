@@ -42,11 +42,11 @@ const Scale: React.FC = () => {
   useEffect(() => {
     const { reading, useOfEnglish, writing, listening, speaking } = getPercentages(
       selectedLevel,
-      data[selectedStudent].reading,
-      data[selectedStudent].useOfEnglish,
-      data[selectedStudent].writing,
-      data[selectedStudent].listening,
-      data[selectedStudent].speaking,
+      data[selectedStudent].reading.total,
+      data[selectedStudent].useOfEnglish.total,
+      data[selectedStudent].writing.total,
+      data[selectedStudent].listening.total,
+      data[selectedStudent].speaking.total,
     )
 
     setReadingMark(getCambridgeMark(selectedLevel, reading))

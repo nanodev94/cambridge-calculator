@@ -2,10 +2,6 @@
   border-collapse: collapse;
   width: 100%;
 
-  & tr td {
-    width: 10%;
-  }
-
   & tr td:first-child {
     width: 60%;
 
@@ -54,4 +50,11 @@
 
 .rowSelected {
   background-color: var(--row-selected);
+}
+
+.actionButtonsCol {
+  & button {
+    display: flex;
+    align-items: center;
+  }
 }

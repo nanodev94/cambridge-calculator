@@ -1,18 +1,18 @@
 /* eslint-disable no-param-reassign */
 import { type RootState } from '../store'
 import { type PayloadAction, createSlice } from '@reduxjs/toolkit'
-import { type Level, type Subject } from '../../types'
+import { type SubjectParts, type Level, type Subject, type SpeakingParts } from '../../types'
 
 export type StudentMarkKeys = 'name' | Subject
 export type SubjectsWithFinal = Subject | 'final'
 
 type StudentMarks = {
   name: string
-  reading: number
-  useOfEnglish: number
-  writing: number
-  listening: number
-  speaking: number
+  reading: Partial<Record<SubjectParts, number>> & { total: number }
+  useOfEnglish: Partial<Record<SubjectParts, number>> & { total: number }
+  writing: Partial<Record<SubjectParts, number>> & { total: number }
+  listening: Partial<Record<SubjectParts, number>> & { total: number }
+  speaking: Partial<Record<SpeakingParts, number>> & { total: number }
 }
 
 type DataState = {
@@ -29,11 +29,21 @@ type DataState = {
 
 const EMPTY_STUDENT: StudentMarks = {
   name: '',
-  reading: 0,
-  useOfEnglish: 0,
-  writing: 0,
-  listening: 0,
-  speaking: 0,
+  reading: {
+    total: 0,
+  },
+  useOfEnglish: {
+    total: 0,
+  },
+  writing: {
+    total: 0,
+  },
+  listening: {
+    total: 0,
+  },
+  speaking: {
+    total: 0,
+  },
 }
 
 const initialState: DataState = {
@@ -49,59 +59,129 @@ const initialState: DataState = {
           students: [
             {
               name: 'Marcos',
-              reading: 28,
-              useOfEnglish: 0,
-              writing: 38,
-              listening: 24,
-              speaking: 29,
+              reading: {
+                total: 28,
+              },
+              useOfEnglish: {
+                total: 0,
+              },
+              writing: {
+                total: 38,
+              },
+              listening: {
+                total: 24,
+              },
+              speaking: {
+                total: 29,
+              },
             },
             {
               name: 'María',
-              reading: 24,
-              useOfEnglish: 0,
-              writing: 27,
-              listening: 15,
-              speaking: 20,
+              reading: {
+                total: 24,
+              },
+              useOfEnglish: {
+                total: 0,
+              },
+              writing: {
+                total: 27,
+              },
+              listening: {
+                total: 15,
+              },
+              speaking: {
+                total: 20,
+              },
             },
             {
               name: 'Isaac',
-              reading: 18,
-              useOfEnglish: 0,
-              writing: 27,
-              listening: 15,
-              speaking: 20,
+              reading: {
+                total: 18,
+              },
+              useOfEnglish: {
+                total: 0,
+              },
+              writing: {
+                total: 27,
+              },
+              listening: {
+                total: 15,
+              },
+              speaking: {
+                total: 20,
+              },
             },
             {
               name: 'Hugo',
-              reading: 26,
-              useOfEnglish: 0,
-              writing: 37,
-              listening: 15,
-              speaking: 27,
+              reading: {
+                total: 26,
+              },
+              useOfEnglish: {
+                total: 0,
+              },
+              writing: {
+                total: 37,
+              },
+              listening: {
+                total: 15,
+              },
+              speaking: {
+                total: 27,
+              },
             },
             {
               name: 'Ramón',
-              reading: 24,
-              useOfEnglish: 0,
-              writing: 32,
-              listening: 22,
-              speaking: 27,
+              reading: {
+                total: 24,
+              },
+              useOfEnglish: {
+                total: 0,
+              },
+              writing: {
+                total: 32,
+              },
+              listening: {
+                total: 22,
+              },
+              speaking: {
+                total: 27,
+              },
             },
             {
               name: 'Nerea',
-              reading: 9,
-              useOfEnglish: 0,
-              writing: 10,
-              listening: 7,
-              speaking: 7,
+              reading: {
+                total: 9,
+              },
+              useOfEnglish: {
+                total: 0,
+              },
+              writing: {
+                total: 10,
+              },
+              listening: {
+                total: 7,
+              },
+              speaking: {
+                total: 7,
+              },
             },
             {
               name: 'Nazaret',
-              reading: 16,
-              useOfEnglish: 0,
-              writing: 27,
-              listening: 12,
-              speaking: 23,
+              reading: {
+                total: 16,
+              },
+              useOfEnglish: {
+                total: 0,
+              },
+              writing: {
+                total: 27,
+              },
+              listening: {
+                total: 12,
+              },
+              speaking: {
+                total: 23,
+              },
             },
           ],
           selectedStudent: 0,
@@ -200,12 +280,8 @@ export const selectTableStudents = (state: RootState, level: Level) => state.tab
 export const selectTableStudentMarks = (state: RootState, level: Level, row: number) =>
   state.tables[level].students[row]
 
-export const selectTableStudentMark = (
-  state: RootState,
-  level: Level,
-  row: number,
-  val: StudentMarkKeys,
-) => state.tables[level].students[row][val]
+export const selectTableStudentMark = (state: RootState, level: Level, row: number, val: Subject) =>
+  state.tables[level].students[row][val]
 
 export const selectSelectedLevel = (state: RootState) => state.selectedLevel
 

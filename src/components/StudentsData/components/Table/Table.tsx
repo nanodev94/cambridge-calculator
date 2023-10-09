@@ -2,15 +2,19 @@ import { useAppDispatch, useAppSelector } from '../../../../redux/hooks'
 import {
   updateStudent,
   selectTableStudents,
-  type StudentMarkKeys,
   selectSelectedStudent,
   setSelectedStudent,
   selectSelectedLevel,
+  removeStudent,
 } from '../../../../redux/slices/dataSlice'
 import { CAMBRIDGE_POINTS, SUBJECTS } from '../../../../constants'
+import { type Subject } from '../../../../types'
+import Button from '../../../Button'
+import Icon from 'react-icons-kit'
+import { ic_remove_twotone as removeIcon } from 'react-icons-kit/md/ic_remove_twotone'
 import styles from './styles.module.css'
 
-const { container, field, fieldError, rowSelected } = styles
+const { container, field, fieldError, rowSelected, actionButtonsCol } = styles
 
 const Table: React.FC = () => {
   const dispatch = useAppDispatch()
@@ -18,16 +22,26 @@ const Table: React.FC = () => {
   const data = useAppSelector((state) => selectTableStudents(state, selectedLevel))
   const selectedStudent = useAppSelector((state) => selectSelectedStudent(state, selectedLevel))
 
-  const handleChange = (
-    event: React.ChangeEvent<HTMLInputElement>,
-    row: number,
-    key: StudentMarkKeys,
-  ) => {
-    const newVal =
-      key === 'name' ? event.target.value : event.target.value ? parseInt(event.target.value) : ''
+  const handleDeleteStudent = (row: number) => {
+    dispatch(removeStudent({ level: selectedLevel, row }))
+  }
+
+  const handleChangeName = (event: React.ChangeEvent<HTMLInputElement>, row: number) => {
     const newData = {
       ...data[row],
-      [key]: newVal,
+      name: event.target.value,
+    }
+    dispatch(updateStudent({ level: selectedLevel, row, data: newData }))
+  }
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>, row: number, key: Subject) => {
+    const newVal = event.target.value ? parseInt(event.target.value) : ''
+    const newData = {
+      ...data[row],
+      [key]: {
+        ...data[row][key],
+        total: newVal,
+      },
     }
     dispatch(updateStudent({ level: selectedLevel, row, data: newData }))
   }
@@ -58,7 +72,7 @@ const Table: React.FC = () => {
                 type='text'
                 value={rowData.name}
                 onChange={(e) => {
-                  handleChange(e, row, 'name')
+                  handleChangeName(e, row)
                 }}
                 onFocus={() => {
                   dispatch(setSelectedStudent({ level: selectedLevel, row }))
@@ -67,16 +81,17 @@ const Table: React.FC = () => {
             </td>
 
             {SUBJECTS.map((subject) => {
-              const success = rowData[subject] >= CAMBRIDGE_POINTS[selectedLevel].minPoints[subject]
-
               if (['A2', 'B1'].includes(selectedLevel) && subject === 'useOfEnglish') return null
+
+              const success =
+                rowData[subject].total >= CAMBRIDGE_POINTS[selectedLevel].minPoints[subject]
 
               return (
                 <td key={`${rowData.name}-${subject}`}>
                   <input
                     className={`${field} ${success ? '' : fieldError}`}
                     type='number'
-                    value={rowData[subject]}
+                    value={rowData[subject].total}
                     onChange={(e) => {
                       handleChange(e, row, subject)
                     }}
@@ -87,6 +102,16 @@ const Table: React.FC = () => {
                 </td>
               )
             })}
+            <td className={actionButtonsCol}>
+              <Button
+                icon={<Icon size={15} icon={removeIcon} />}
+                color={'rgb(255,0,0)'}
+                onClick={() => {
+                  handleDeleteStudent(row)
+                }}
+                size='small'
+              />
+            </td>
           </tr>
         ))}
       </tbody>

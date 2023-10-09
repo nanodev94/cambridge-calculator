@@ -32,8 +32,16 @@
 }
 
 .tabContent {
+  display: flex;
+  flex-direction: column;
   overflow: scroll;
   margin-top: 10px;
+  height: 100%;
+  gap: 10px;
+
+  & > button {
+    align-self: center;
+  }
 }
 
 @media screen and (width < 550px) {

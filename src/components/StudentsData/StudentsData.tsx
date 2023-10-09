@@ -1,7 +1,15 @@
 import { useAppDispatch, useAppSelector } from '../../redux/hooks'
-import { selectSelectedLevel, selectTables, setSelectedLevel } from '../../redux/slices/dataSlice'
+import {
+  addStudent,
+  selectSelectedLevel,
+  selectTables,
+  setSelectedLevel,
+} from '../../redux/slices/dataSlice'
 import { type Level } from '../../types'
+import Button from '../Button'
 import Table from './components/Table'
+import Icon from 'react-icons-kit'
+import { ic_add as addIcon } from 'react-icons-kit/md/ic_add'
 import styles from './styles.module.css'
 
 const { container, tabsContainer, tab, tabSelected, tabContent } = styles
@@ -10,6 +18,10 @@ const StudentsData: React.FC = () => {
   const dispatch = useAppDispatch()
   const tables = useAppSelector(selectTables)
   const selectedLevel = useAppSelector(selectSelectedLevel)
+
+  const addNewStudent = () => {
+    dispatch(addStudent({ level: selectedLevel }))
+  }
 
   const changeLevel = (level: Level) => {
     dispatch(setSelectedLevel({ level }))
@@ -35,6 +47,12 @@ const StudentsData: React.FC = () => {
       </div>
       <div className={tabContent}>
         <Table />
+        <Button
+          icon={<Icon size={25} icon={addIcon} />}
+          color={'rgb(0,255,0)'}
+          onClick={addNewStudent}
+          size='medium'
+        />
       </div>
     </div>
   )
