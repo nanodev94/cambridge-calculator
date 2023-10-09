@@ -7,6 +7,7 @@ import {
   selectSelectedLevel,
 } from './redux/slices/dataSlice'
 import Header from './components/Header'
+import Footer from './components/Footer'
 import StudentsData from './components/StudentsData'
 import StudentsScore from './components/StudentsScore'
 import styles from './App.module.css'
@@ -34,6 +35,7 @@ const App: React.FC = () => {
         <StudentsData />
         <StudentsScore />
       </div>
+      <Footer />
     </div>
   )
 }

@@ -1,0 +1,29 @@
+.container {
+  background-color: black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+
+  & span {
+    color: white;
+    cursor: default;
+    font-weight: bold;
+  }
+
+  & a {
+    color: rgb(252 142 39);
+
+    &:link {
+      color: rgb(252 142 39);
+    }
+
+    &:active {
+      color: rgb(252 142 39);
+    }
+
+    &:visited {
+      color: rgb(252 142 39);
+    }
+  }
+}
