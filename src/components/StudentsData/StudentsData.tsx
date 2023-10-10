@@ -7,6 +7,7 @@ import {
 } from '../../redux/slices/dataSlice'
 import { type Level } from '../../types'
 import Button from '../Button'
+import StudentDetailsModal from '../Modals/StudentDetailsModal'
 import Table from './components/Table'
 import Icon from 'react-icons-kit'
 import { ic_add as addIcon } from 'react-icons-kit/md/ic_add'
@@ -47,6 +48,7 @@ const StudentsData: React.FC = () => {
       </div>
       <div className={tabContent}>
         <Table />
+        <StudentDetailsModal />
         <Button
           icon={<Icon size={25} icon={addIcon} />}
           color={'rgb(0,255,0)'}

@@ -1,18 +1,18 @@
 /* eslint-disable no-param-reassign */
 import { type RootState } from '../store'
 import { type PayloadAction, createSlice } from '@reduxjs/toolkit'
-import { type SubjectParts, type Level, type Subject, type SpeakingParts } from '../../types'
+import { type SubjectPart, type Level, type Subject } from '../../types'
 
 export type StudentMarkKeys = 'name' | Subject
 export type SubjectsWithFinal = Subject | 'final'
 
 type StudentMarks = {
   name: string
-  reading: Partial<Record<SubjectParts, number>> & { total: number }
-  useOfEnglish: Partial<Record<SubjectParts, number>> & { total: number }
-  writing: Partial<Record<SubjectParts, number>> & { total: number }
-  listening: Partial<Record<SubjectParts, number>> & { total: number }
-  speaking: Partial<Record<SpeakingParts, number>> & { total: number }
+  reading: Partial<Record<SubjectPart, number>> & { total: number }
+  useOfEnglish: Partial<Record<SubjectPart, number>> & { total: number }
+  writing: Partial<Record<SubjectPart, number>> & { total: number }
+  listening: Partial<Record<SubjectPart, number>> & { total: number }
+  speaking: Partial<Record<SubjectPart, number>> & { total: number }
 }
 
 type DataState = {
@@ -21,10 +21,13 @@ type DataState = {
     {
       students: StudentMarks[]
       selectedStudent: number
-      selectedSubject: SubjectsWithFinal
     }
   >
   selectedLevel: Level
+  studentDetailsModal: {
+    opened: boolean
+    studentPos: number
+  }
 }
 
 const EMPTY_STUDENT: StudentMarks = {
@@ -53,7 +56,6 @@ const initialState: DataState = {
         A2: {
           students: [EMPTY_STUDENT],
           selectedStudent: 0,
-          selectedSubject: 'final',
         },
         B1: {
           students: [
@@ -185,27 +187,27 @@ const initialState: DataState = {
             },
           ],
           selectedStudent: 0,
-          selectedSubject: 'final',
         },
         B2: {
           students: [EMPTY_STUDENT],
           selectedStudent: 0,
-          selectedSubject: 'final',
         },
         C1: {
           students: [EMPTY_STUDENT],
           selectedStudent: 0,
-          selectedSubject: 'final',
         },
         C2: {
           students: [EMPTY_STUDENT],
           selectedStudent: 0,
-          selectedSubject: 'final',
         },
       },
   selectedLevel: localStorage.getItem('selectedLevel')
     ? JSON.parse(localStorage.getItem('selectedLevel') as string)
     : 'B1',
+  studentDetailsModal: {
+    opened: false,
+    studentPos: 0,
+  },
 }
 
 export const dataSlice = createSlice({
@@ -246,16 +248,19 @@ export const dataSlice = createSlice({
       const { level } = action.payload
       state.selectedLevel = level
     },
-    setSelectedSubject: (
-      state,
-      action: PayloadAction<{ level: Level; subject: SubjectsWithFinal }>,
-    ) => {
-      const { level, subject } = action.payload
-      state.tables[level].selectedSubject = subject
-    },
     setSelectedStudent: (state, action: PayloadAction<{ level: Level; row: number }>) => {
       const { level, row } = action.payload
       state.tables[level].selectedStudent = row
+    },
+    setStudentDetailsModalOpened: (
+      state,
+      action: PayloadAction<{ opened: boolean; row: number }>,
+    ) => {
+      const { opened, row } = action.payload
+      state.studentDetailsModal = {
+        opened,
+        studentPos: row,
+      }
     },
   },
 })
@@ -267,8 +272,8 @@ export const {
   reset,
   updateStudent,
   setSelectedLevel,
-  setSelectedSubject,
   setSelectedStudent,
+  setStudentDetailsModalOpened,
 } = dataSlice.actions
 
 export const selectTables = (state: RootState) => state.tables
@@ -285,8 +290,7 @@ export const selectTableStudentMark = (state: RootState, level: Level, row: numb
 
 export const selectSelectedLevel = (state: RootState) => state.selectedLevel
 
-export const selectSelectedSubject = (state: RootState, level: Level) =>
-  state.tables[level].selectedSubject
-
 export const selectSelectedStudent = (state: RootState, level: Level) =>
   state.tables[level].selectedStudent
+
+export const selectStudentDetailsModal = (state: RootState) => state.studentDetailsModal

@@ -1,6 +1,180 @@
-import type { CambridgePoints, CambridgeScores, Subject } from './types'
+import type { CambridgePoints, CambridgeScores, Subject, SubjectPart, SubjectParts } from './types'
 
-export const SUBJECTS: Subject[] = ['reading', 'useOfEnglish', 'writing', 'listening', 'speaking']
+export const SUBJECTS_ALL: Subject[] = [
+  'reading',
+  'useOfEnglish',
+  'writing',
+  'listening',
+  'speaking',
+]
+
+export const SUBJECT_PARTS_ALL: SubjectPart[] = [
+  'part1',
+  'part2',
+  'part3',
+  'part4',
+  'part5',
+  'part6',
+  'part7',
+  'part8',
+  'grammarVocabulary',
+  'lexis',
+  'discourse',
+  'pronunciation',
+  'interaction',
+  'global',
+]
+
+export const SUBJECT_PARTS: SubjectParts = {
+  A2: {
+    reading: [
+      { name: 'part1', maxPoints: 6 },
+      { name: 'part2', maxPoints: 7 },
+      { name: 'part3', maxPoints: 5 },
+      { name: 'part4', maxPoints: 6 },
+      { name: 'part5', maxPoints: 6 },
+    ],
+    useOfEnglish: [],
+    writing: [
+      { name: 'part6', maxPoints: 15 },
+      { name: 'part7', maxPoints: 15 },
+    ],
+    listening: [
+      { name: 'part1', maxPoints: 5 },
+      { name: 'part2', maxPoints: 5 },
+      { name: 'part3', maxPoints: 5 },
+      { name: 'part4', maxPoints: 5 },
+      { name: 'part5', maxPoints: 5 },
+    ],
+    speaking: [
+      { name: 'grammarVocabulary', maxPoints: 10 },
+      { name: 'pronunciation', maxPoints: 10 },
+      { name: 'interaction', maxPoints: 10 },
+      { name: 'global', maxPoints: 15 },
+    ],
+  },
+  B1: {
+    reading: [
+      { name: 'part1', maxPoints: 5 },
+      { name: 'part2', maxPoints: 5 },
+      { name: 'part3', maxPoints: 5 },
+      { name: 'part4', maxPoints: 5 },
+      { name: 'part5', maxPoints: 6 },
+      { name: 'part6', maxPoints: 6 },
+    ],
+    useOfEnglish: [],
+    writing: [
+      { name: 'part1', maxPoints: 20 },
+      { name: 'part2', maxPoints: 20 },
+    ],
+    listening: [
+      { name: 'part1', maxPoints: 7 },
+      { name: 'part2', maxPoints: 6 },
+      { name: 'part3', maxPoints: 6 },
+      { name: 'part4', maxPoints: 6 },
+    ],
+    speaking: [
+      { name: 'grammarVocabulary', maxPoints: 5 },
+      { name: 'discourse', maxPoints: 5 },
+      { name: 'pronunciation', maxPoints: 5 },
+      { name: 'interaction', maxPoints: 5 },
+      { name: 'global', maxPoints: 10 },
+    ],
+  },
+  B2: {
+    reading: [
+      { name: 'part1', maxPoints: 8 },
+      { name: 'part5', maxPoints: 12 },
+      { name: 'part6', maxPoints: 12 },
+      { name: 'part7', maxPoints: 10 },
+    ],
+    useOfEnglish: [
+      { name: 'part2', maxPoints: 8 },
+      { name: 'part3', maxPoints: 8 },
+      { name: 'part4', maxPoints: 12 },
+    ],
+    writing: [
+      { name: 'part1', maxPoints: 20 },
+      { name: 'part2', maxPoints: 20 },
+    ],
+    listening: [
+      { name: 'part1', maxPoints: 8 },
+      { name: 'part2', maxPoints: 10 },
+      { name: 'part3', maxPoints: 5 },
+      { name: 'part4', maxPoints: 7 },
+    ],
+    speaking: [
+      { name: 'grammarVocabulary', maxPoints: 10 },
+      { name: 'discourse', maxPoints: 10 },
+      { name: 'pronunciation', maxPoints: 10 },
+      { name: 'interaction', maxPoints: 10 },
+      { name: 'global', maxPoints: 20 },
+    ],
+  },
+  C1: {
+    reading: [
+      { name: 'part1', maxPoints: 8 },
+      { name: 'part5', maxPoints: 12 },
+      { name: 'part6', maxPoints: 8 },
+      { name: 'part7', maxPoints: 12 },
+      { name: 'part8', maxPoints: 10 },
+    ],
+    useOfEnglish: [
+      { name: 'part2', maxPoints: 8 },
+      { name: 'part3', maxPoints: 8 },
+      { name: 'part4', maxPoints: 12 },
+    ],
+    writing: [
+      { name: 'part1', maxPoints: 20 },
+      { name: 'part2', maxPoints: 20 },
+    ],
+    listening: [
+      { name: 'part1', maxPoints: 6 },
+      { name: 'part2', maxPoints: 8 },
+      { name: 'part3', maxPoints: 6 },
+      { name: 'part4', maxPoints: 10 },
+    ],
+    speaking: [
+      { name: 'grammarVocabulary', maxPoints: 10 },
+      { name: 'lexis', maxPoints: 10 },
+      { name: 'discourse', maxPoints: 10 },
+      { name: 'pronunciation', maxPoints: 10 },
+      { name: 'interaction', maxPoints: 10 },
+      { name: 'global', maxPoints: 25 },
+    ],
+  },
+  C2: {
+    reading: [
+      { name: 'part1', maxPoints: 8 },
+      { name: 'part5', maxPoints: 12 },
+      { name: 'part6', maxPoints: 14 },
+      { name: 'part7', maxPoints: 10 },
+    ],
+    useOfEnglish: [
+      { name: 'part2', maxPoints: 8 },
+      { name: 'part3', maxPoints: 8 },
+      { name: 'part4', maxPoints: 12 },
+    ],
+    writing: [
+      { name: 'part1', maxPoints: 20 },
+      { name: 'part2', maxPoints: 20 },
+    ],
+    listening: [
+      { name: 'part1', maxPoints: 6 },
+      { name: 'part2', maxPoints: 9 },
+      { name: 'part3', maxPoints: 5 },
+      { name: 'part4', maxPoints: 10 },
+    ],
+    speaking: [
+      { name: 'grammarVocabulary', maxPoints: 10 },
+      { name: 'lexis', maxPoints: 10 },
+      { name: 'discourse', maxPoints: 10 },
+      { name: 'pronunciation', maxPoints: 10 },
+      { name: 'interaction', maxPoints: 10 },
+      { name: 'global', maxPoints: 25 },
+    ],
+  },
+}
 
 export const CAMBRIDGE_POINTS: CambridgePoints = {
   A2: {

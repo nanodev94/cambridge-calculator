@@ -1,9 +1,23 @@
 .container {
   border-collapse: collapse;
-  width: 100%;
+
+  & tr {
+    border-bottom: 1px solid black;
+  }
+
+  & td,
+  & th {
+    border-right: 1px solid black;
+
+    & input {
+      border: none;
+      width: 100px;
+    }
+  }
 
   & tr td:first-child {
-    width: 60%;
+    text-align: center;
+    text-transform: capitalize;
 
     & input {
       color: black;
@@ -19,11 +33,9 @@
 .field {
   background-color: var(--row);
   border: 2px solid black;
-  color: var(--mark-success);
   font-weight: bold;
   padding: 5px;
   text-align: center;
-  width: 100%;
 
   &[type='number'] {
     -moz-appearance: textfield;
@@ -41,24 +53,5 @@
 
   @media screen and (width < 550px) {
     font-size: 10px;
-  }
-}
-
-.fieldError {
-  color: var(--mark-fail);
-}
-
-.rowSelected {
-  background-color: var(--row-selected);
-}
-
-.actionButtonsCol {
-  display: flex;
-  gap: 5px;
-  padding: 4px;
-
-  & button {
-    display: flex;
-    align-items: center;
   }
 }

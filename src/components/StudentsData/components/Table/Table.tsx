@@ -6,12 +6,14 @@ import {
   setSelectedStudent,
   selectSelectedLevel,
   removeStudent,
+  setStudentDetailsModalOpened,
 } from '../../../../redux/slices/dataSlice'
-import { CAMBRIDGE_POINTS, SUBJECTS } from '../../../../constants'
+import { CAMBRIDGE_POINTS, SUBJECTS_ALL } from '../../../../constants'
 import { type Subject } from '../../../../types'
 import Button from '../../../Button'
 import Icon from 'react-icons-kit'
 import { ic_remove_twotone as removeIcon } from 'react-icons-kit/md/ic_remove_twotone'
+import { ic_search as searchIcon } from 'react-icons-kit/md/ic_search'
 import styles from './styles.module.css'
 
 const { container, field, fieldError, rowSelected, actionButtonsCol } = styles
@@ -21,6 +23,11 @@ const Table: React.FC = () => {
   const selectedLevel = useAppSelector(selectSelectedLevel)
   const data = useAppSelector((state) => selectTableStudents(state, selectedLevel))
   const selectedStudent = useAppSelector((state) => selectSelectedStudent(state, selectedLevel))
+
+  const handleOpenStudentDetails = (row: number) => {
+    dispatch(setSelectedStudent({ level: selectedLevel, row }))
+    dispatch(setStudentDetailsModalOpened({ opened: true, row }))
+  }
 
   const handleDeleteStudent = (row: number) => {
     dispatch(removeStudent({ level: selectedLevel, row }))
@@ -80,7 +87,7 @@ const Table: React.FC = () => {
               />
             </td>
 
-            {SUBJECTS.map((subject) => {
+            {SUBJECTS_ALL.map((subject) => {
               if (['A2', 'B1'].includes(selectedLevel) && subject === 'useOfEnglish') return null
 
               const success =
@@ -103,6 +110,14 @@ const Table: React.FC = () => {
               )
             })}
             <td className={actionButtonsCol}>
+              <Button
+                icon={<Icon size={15} icon={searchIcon} />}
+                color={'rgb(0,255,255)'}
+                onClick={() => {
+                  handleOpenStudentDetails(row)
+                }}
+                size='small'
+              />
               <Button
                 icon={<Icon size={15} icon={removeIcon} />}
                 color={'rgb(255,0,0)'}

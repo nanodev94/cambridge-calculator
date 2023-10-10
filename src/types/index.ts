@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 export type Level = 'A2' | 'B1' | 'B2' | 'C1' | 'C2'
 export type Subject = 'reading' | 'useOfEnglish' | 'writing' | 'listening' | 'speaking'
-export type SubjectParts =
+export type SubjectPart =
   | 'part1'
   | 'part2'
   | 'part3'
@@ -10,9 +10,6 @@ export type SubjectParts =
   | 'part6'
   | 'part7'
   | 'part8'
-  | 'total'
-
-export type SpeakingParts =
   | 'grammarVocabulary'
   | 'lexis'
   | 'discourse'
@@ -30,3 +27,8 @@ export type CambridgePoints = Record<
 >
 
 export type CambridgeScores = Record<Level, Record<number, number>>
+
+export type SubjectParts = Record<
+  Level,
+  Record<Subject, { name: SubjectPart; maxPoints: number }[]>
+>

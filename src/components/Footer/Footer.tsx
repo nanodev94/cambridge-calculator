@@ -8,7 +8,7 @@ const Footer: React.FC = () => {
       <span>
         Developed by{' '}
         <a href='https://twitter.com/nanodev94' target='_blank'>
-          @nanodev
+          @nanodev94
         </a>
       </span>
     </footer>
