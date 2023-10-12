@@ -3,7 +3,7 @@ import styles from './styles.module.css'
 interface ButtonProps {
   icon: React.ReactNode
   color: string
-  onClick: () => void
+  onClick?: () => void
   size?: 'small' | 'medium' | 'large'
 }
 

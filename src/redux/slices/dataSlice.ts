@@ -6,7 +6,7 @@ import { type SubjectPart, type Level, type Subject } from '../../types'
 export type StudentMarkKeys = 'name' | Subject
 export type SubjectsWithFinal = Subject | 'final'
 
-type StudentMarks = {
+export type StudentMarks = {
   name: string
   reading: Partial<Record<SubjectPart, number>> & { total: number }
   useOfEnglish: Partial<Record<SubjectPart, number>> & { total: number }
