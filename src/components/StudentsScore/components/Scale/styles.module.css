@@ -42,8 +42,48 @@
   }
 }
 
+.categoryInitial {
+  background-image: linear-gradient(
+    to top,
+    var(--color-level-A0),
+    var(--color-level-A0),
+    var(--color-level-A1)
+  );
+}
+
+.categoryBasic {
+  background-image: linear-gradient(
+    to top,
+    var(--color-level-A1),
+    var(--color-level-A1),
+    var(--color-level-A2),
+    var(--color-level-A2),
+    var(--color-level-B1)
+  );
+}
+
+.categoryIndependent {
+  background-image: linear-gradient(
+    to top,
+    var(--color-level-B1),
+    var(--color-level-B1),
+    var(--color-level-B2),
+    var(--color-level-B2),
+    var(--color-level-C1)
+  );
+}
+
+.categoryProficient {
+  background-image: linear-gradient(
+    to top,
+    var(--color-level-C1),
+    var(--color-level-C2),
+    var(--color-level-C2)
+  );
+}
+
 .categorySelected {
-  background-color: red;
+  border: 7px solid red;
 }
 
 .levelsContainer {
@@ -83,8 +123,36 @@
   z-index: 1;
 }
 
+.levelA0 {
+  background-color: var(--color-level-A0);
+}
+
+.levelA1 {
+  background-color: var(--color-level-A1);
+}
+
+.levelA2 {
+  background-color: var(--color-level-A2);
+}
+
+.levelB1 {
+  background-color: var(--color-level-B1);
+}
+
+.levelB2 {
+  background-color: var(--color-level-B2);
+}
+
+.levelC1 {
+  background-color: var(--color-level-C1);
+}
+
+.levelC2 {
+  background-color: var(--color-level-C2);
+}
+
 .levelSelected {
-  background-color: red;
+  border: 7px solid red;
 }
 
 .marksContainer {

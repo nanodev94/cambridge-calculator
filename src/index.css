@@ -29,6 +29,13 @@ body {
   --tag-writing: yellow;
   --tag-listening: cyan;
   --tag-speaking: tomato;
+  --color-level-A0: #f2f1f0;
+  --color-level-A1: #9dd942;
+  --color-level-A2: #68902d;
+  --color-level-B1: #01c4ff;
+  --color-level-B2: #20809e;
+  --color-level-C1: #6262fd;
+  --color-level-C2: #3f3fa6;
 }
 
 #modal {

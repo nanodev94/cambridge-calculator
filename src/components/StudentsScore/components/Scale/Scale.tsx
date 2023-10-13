@@ -14,10 +14,21 @@ const {
   scaleContainer,
   categoriesContainer,
   category,
+  categoryInitial,
+  categoryBasic,
+  categoryIndependent,
+  categoryProficient,
   categorySelected,
   levelsContainer,
   levelsHorizontalLine,
   level,
+  levelA0,
+  levelA1,
+  levelA2,
+  levelB1,
+  levelB2,
+  levelC1,
+  levelC2,
   levelSelected,
   marksContainer,
   mark,
@@ -73,47 +84,79 @@ const Scale: React.FC = () => {
     <div className={container}>
       <div className={scaleContainer}>
         <div className={categoriesContainer}>
-          <div className={`${category} ${finalMark >= 180 ? categorySelected : ''}`}>
+          <div
+            className={`${category} ${categoryProficient} ${
+              finalMark >= 180 ? categorySelected : ''
+            }`}
+          >
             <span>PROFICIENT</span>
           </div>
           <div
-            className={`${category} ${finalMark >= 140 && finalMark < 180 ? categorySelected : ''}`}
+            className={`${category} ${categoryIndependent} ${
+              finalMark >= 140 && finalMark < 180 ? categorySelected : ''
+            }`}
           >
             <span>INDEPENDENT</span>
           </div>
           <div
-            className={`${category} ${finalMark >= 100 && finalMark < 140 ? categorySelected : ''}`}
+            className={`${category} ${categoryBasic} ${
+              finalMark >= 100 && finalMark < 140 ? categorySelected : ''
+            }`}
           >
             <span>BASIC</span>
           </div>
-          <div className={`${category} ${finalMark < 100 ? categorySelected : ''}`} />
+          <div
+            className={`${category} ${categoryInitial} ${finalMark < 100 ? categorySelected : ''}`}
+          />
         </div>
         <div className={levelsContainer}>
           <div>
             <div className={levelsHorizontalLine} />
-            <div className={`${level} ${finalMark > 200 ? levelSelected : ''}`}>C2</div>
+            <div className={`${level} ${levelC2} ${finalMark > 200 ? levelSelected : ''}`}>C2</div>
             <div className={levelsHorizontalLine} />
-            <div className={`${level} ${finalMark >= 180 && finalMark < 200 ? levelSelected : ''}`}>
+            <div
+              className={`${level} ${levelC1} ${
+                finalMark >= 180 && finalMark < 200 ? levelSelected : ''
+              }`}
+            >
               C1
             </div>
             <div className={levelsHorizontalLine} />
-            <div className={`${level} ${finalMark >= 160 && finalMark < 180 ? levelSelected : ''}`}>
+            <div
+              className={`${level} ${levelB2} ${
+                finalMark >= 160 && finalMark < 180 ? levelSelected : ''
+              }`}
+            >
               B2
             </div>
             <div className={levelsHorizontalLine} />
-            <div className={`${level} ${finalMark >= 140 && finalMark < 160 ? levelSelected : ''}`}>
+            <div
+              className={`${level} ${levelB1} ${
+                finalMark >= 140 && finalMark < 160 ? levelSelected : ''
+              }`}
+            >
               B1
             </div>
             <div className={levelsHorizontalLine} />
-            <div className={`${level} ${finalMark >= 120 && finalMark < 140 ? levelSelected : ''}`}>
+            <div
+              className={`${level} ${levelA2} ${
+                finalMark >= 120 && finalMark < 140 ? levelSelected : ''
+              }`}
+            >
               A2
             </div>
             <div className={levelsHorizontalLine} />
-            <div className={`${level} ${finalMark >= 100 && finalMark < 120 ? levelSelected : ''}`}>
+            <div
+              className={`${level} ${levelA1} ${
+                finalMark >= 100 && finalMark < 120 ? levelSelected : ''
+              }`}
+            >
               A1
             </div>
             <div className={levelsHorizontalLine} />
-            <div className={`${level} ${finalMark < 100 ? levelSelected : ''}`}>{'<'}A1</div>
+            <div className={`${level} ${levelA0} ${finalMark < 100 ? levelSelected : ''}`}>
+              {'<'}A1
+            </div>
             <div className={levelsHorizontalLine} />
           </div>
         </div>
