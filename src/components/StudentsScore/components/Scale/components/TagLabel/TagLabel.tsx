@@ -8,7 +8,7 @@ interface TagLabelProps {
 
 const { container, tagReading, tagUseOfEnglish, tagWriting, tagListening, tagSpeaking } = styles
 
-const TAG_COLOR: Record<Subject, string> = {
+const TAG_TYPE: Record<Subject, string> = {
   reading: tagReading,
   useOfEnglish: tagUseOfEnglish,
   writing: tagWriting,
@@ -17,15 +17,20 @@ const TAG_COLOR: Record<Subject, string> = {
 }
 
 const TagLabel: React.FC<TagLabelProps> = ({ subject, mark }) => {
-  const height = (mark - 80) * 0.683
+  const scaleMarkOrigin = document.getElementById('scale-mark-80')
+  const scaleMark = document.getElementById(`scale-mark-${mark}`)
+  const heightScaleMarkOrigin = scaleMarkOrigin?.getBoundingClientRect().y ?? 0
+  const heightScaleMark = scaleMark?.getBoundingClientRect().y ?? 0
+  const height = heightScaleMarkOrigin - heightScaleMark + 22
 
   return (
-    <div
-      className={`${container} ${TAG_COLOR[subject]}`}
-      style={{ height: `${Math.max(height, 0)}%` }}
-    >
+    <div className={`${container} ${TAG_TYPE[subject]}`} style={{ height: Math.max(height, 0) }}>
       <div />
-      <span>{subject}</span>
+      <span>
+        {subject}
+        <br />
+        {mark}
+      </span>
     </div>
   )
 }

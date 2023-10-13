@@ -78,7 +78,11 @@ const Scale: React.FC = () => {
     }
   }, [selectedStudent, data, selectedLevel])
 
-  const bottom = (finalMark - 80) * 0.662
+  const scaleMarkOrigin = document.getElementById('scale-mark-80')
+  const scaleMark = document.getElementById(`scale-mark-${finalMark}`)
+  const heightScaleMarkOrigin = scaleMarkOrigin?.getBoundingClientRect().y ?? 0
+  const heightScaleMark = scaleMark?.getBoundingClientRect().y ?? 0
+  const bottom = heightScaleMarkOrigin - heightScaleMark + 1
 
   return (
     <div className={container}>
@@ -166,6 +170,7 @@ const Scale: React.FC = () => {
             return (
               <div
                 key={i}
+                id={`scale-mark-${i + 80}`}
                 className={`${mark} ${
                   size === 'large' ? markLarge : size === 'medium' ? markMedium : ''
                 }`}
@@ -190,8 +195,8 @@ const Scale: React.FC = () => {
 
         <TagLabel subject='speaking' mark={speakingMark} />
       </div>
-      <div className={finalLabel} style={{ bottom: `${Math.max(bottom, 0)}%` }}>
-        {finalMark}
+      <div className={finalLabel} style={{ bottom: Math.max(bottom, 0) }}>
+        <span>{finalMark}</span>
       </div>
     </div>
   )
