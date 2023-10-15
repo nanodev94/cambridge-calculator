@@ -1,6 +1,7 @@
 .container {
   display: flex;
   align-items: flex-start;
+  position: absolute;
   min-height: 1.5%;
 
   & div {
@@ -17,7 +18,7 @@
     font-size: 16px;
     font-weight: bold;
     overflow: hidden;
-    padding-left: 5px;
+    padding: 0 5px;
     text-transform: capitalize;
     width: 90%;
   }

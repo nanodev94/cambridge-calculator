@@ -31,7 +31,13 @@ const FloatingMenu: React.FC = () => {
         fileName={`marks_${selectedLevel}_${new Date().getTime()}.pdf`}
       >
         {({ loading }) =>
-          loading ? null : (
+          loading ? (
+            <Button
+              icon={<Icon size={30} icon={pdfIcon} />}
+              color={'rgb(100,100,100)'}
+              size='large'
+            />
+          ) : (
             <Button icon={<Icon size={30} icon={pdfIcon} />} color={'rgb(255,0,0)'} size='large' />
           )
         }
