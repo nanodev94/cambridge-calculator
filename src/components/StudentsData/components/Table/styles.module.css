@@ -1,5 +1,6 @@
 .container {
   border-collapse: collapse;
+  min-width: 400px;
   width: 100%;
 
   & tr td:first-child {
@@ -11,8 +12,10 @@
     }
   }
 
-  @media screen and (width < 550px) {
-    font-size: 12px;
+  & thead {
+    background-color: white;
+    position: sticky;
+    top: 0;
   }
 }
 
@@ -38,10 +41,6 @@
   &:focus {
     outline: 4px solid blue;
   }
-
-  @media screen and (width < 550px) {
-    font-size: 10px;
-  }
 }
 
 .fieldError {
@@ -60,5 +59,17 @@
   & button {
     display: flex;
     align-items: center;
+  }
+}
+
+@media screen and (width < 850px) {
+  .container {
+    font-size: 12px;
+  }
+}
+
+@media screen and (width < 550px) {
+  .field {
+    padding: 8px;
   }
 }

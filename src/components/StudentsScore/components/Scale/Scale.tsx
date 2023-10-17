@@ -32,6 +32,7 @@ const {
   levelSelected,
   marksContainer,
   mark,
+  markSmall,
   markMedium,
   markLarge,
   labelsContainer,
@@ -110,7 +111,9 @@ const Scale: React.FC = () => {
             <span>BASIC</span>
           </div>
           <div
-            className={`${category} ${categoryInitial} ${finalMark < 100 ? categorySelected : ''}`}
+            className={`${category} ${categoryInitial} ${
+              finalMark >= 80 && finalMark < 100 ? categorySelected : ''
+            }`}
           />
         </div>
         <div className={levelsContainer}>
@@ -158,7 +161,11 @@ const Scale: React.FC = () => {
               A1
             </div>
             <div className={levelsHorizontalLine} />
-            <div className={`${level} ${levelA0} ${finalMark < 100 ? levelSelected : ''}`}>
+            <div
+              className={`${level} ${levelA0} ${
+                finalMark >= 80 && finalMark < 100 ? levelSelected : ''
+              }`}
+            >
               {'<'}A1
             </div>
             <div className={levelsHorizontalLine} />
@@ -172,11 +179,8 @@ const Scale: React.FC = () => {
                 key={i}
                 id={`scale-mark-${i + 80}`}
                 className={`${mark} ${
-                  size === 'large' ? markLarge : size === 'medium' ? markMedium : ''
+                  size === 'large' ? markLarge : size === 'medium' ? markMedium : markSmall
                 }`}
-                onClick={() => {
-                  console.log(80 + i)
-                }}
               >
                 <span>{i % 10 === 0 && i !== 0 ? 80 + i : ''}</span>
               </div>

@@ -42,7 +42,12 @@ const Table: React.FC = () => {
   }
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>, row: number, key: Subject) => {
-    const newVal = event.target.value ? parseInt(event.target.value) : ''
+    let newVal = event.target.value ? parseInt(event.target.value) : 0
+    const maxVal = CAMBRIDGE_POINTS[selectedLevel].maxPoints[key]
+    if (newVal > maxVal) {
+      newVal = maxVal
+    }
+
     const newData = {
       ...data[row],
       [key]: {
@@ -57,7 +62,7 @@ const Table: React.FC = () => {
     <table className={container}>
       <thead>
         <tr>
-          {['Student', 'Reading', 'UseOfEn', 'Writing', 'Listening', 'Speaking'].map(
+          {['Student', 'Reading', 'UseOfEn', 'Writing', 'Listening', 'Speaking', ''].map(
             (title, col) => {
               if (['A2', 'B1'].includes(selectedLevel) && col === 2) {
                 return undefined
@@ -69,10 +74,7 @@ const Table: React.FC = () => {
       </thead>
       <tbody>
         {data.map((rowData, row) => (
-          <tr
-            key={`${rowData.name}-name-${row}`}
-            className={row === selectedStudent ? rowSelected : undefined}
-          >
+          <tr key={`${row}-name`} className={row === selectedStudent ? rowSelected : undefined}>
             <td>
               <input
                 className={field}
@@ -98,6 +100,7 @@ const Table: React.FC = () => {
                   <input
                     className={`${field} ${success ? '' : fieldError}`}
                     type='number'
+                    max={CAMBRIDGE_POINTS[selectedLevel].maxPoints[subject]}
                     value={rowData[subject].total}
                     onChange={(e) => {
                       handleChange(e, row, subject)

@@ -24,10 +24,6 @@
       text-align: left;
     }
   }
-
-  @media screen and (width < 550px) {
-    font-size: 12px;
-  }
 }
 
 .field {
@@ -50,8 +46,32 @@
   &:focus {
     outline: 4px solid blue;
   }
+}
 
-  @media screen and (width < 550px) {
+@media screen and (width < 850px) {
+  .container {
+    font-size: 12px;
+
+    & td input {
+      width: 60px;
+    }
+  }
+
+  .field {
+    font-size: 12px;
+  }
+}
+
+@media screen and (width < 550px) {
+  .container {
+    font-size: 10px;
+
+    & td input {
+      width: 40px;
+    }
+  }
+
+  .field {
     font-size: 10px;
   }
 }

@@ -7,6 +7,7 @@
 
 .scaleContainer {
   display: flex;
+  width: 70%;
 }
 
 .categoriesContainer {
@@ -35,7 +36,7 @@
   justify-content: center;
   font-size: 15px;
   font-weight: bold;
-  margin-top: 5px;
+  padding-top: 5px;
 
   & span {
     transform: rotateZ(-90deg);
@@ -168,13 +169,16 @@
 
 .mark {
   background: rgba(194 193 192 / 100%);
-  width: 20%;
   height: 0.3%;
 
   & span {
     font-size: 15px;
     font-weight: bold;
   }
+}
+
+.markSmall {
+  width: 20%;
 }
 
 .markMedium {
@@ -190,7 +194,7 @@
   align-items: flex-end;
   overflow: hidden;
   position: relative;
-  width: 100%;
+  width: 30%;
 }
 
 .finalLabel {
@@ -200,27 +204,53 @@
   justify-content: flex-start;
   margin-left: 40px;
   position: absolute;
-  width: 100%;
+  width: 90%;
   height: 0;
 
   & > span {
     font-size: 16px;
     font-weight: bold;
+    z-index: 2;
   }
 }
 
-@media screen and (width < 550px) {
-  .category {
-    font-size: 10px;
-  }
-
-  .levelsContainer {
-    max-width: 60px;
+@media screen and (width < 850px) {
+  .scaleContainer {
+    width: 65%;
   }
 
   .level {
     font-size: 14px;
     width: 35px;
     height: 35px;
+  }
+
+  .marksContainer {
+    min-width: 80px;
+  }
+
+  .labelsContainer {
+    width: 35%;
+  }
+}
+
+@media screen and (width < 550px) {
+  .category {
+    font-size: 10px;
+    width: 35px;
+  }
+
+  .mark {
+    display: flex;
+    height: 0.5%;
+
+    & span {
+      font-size: 10px;
+      margin-top: 2px;
+    }
+  }
+
+  .markSmall {
+    opacity: 0;
   }
 }

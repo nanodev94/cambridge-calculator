@@ -27,6 +27,7 @@
 .medium {
   width: 30px;
   height: 30px;
+  min-height: 30px;
 }
 
 .large {
@@ -35,10 +36,12 @@
 }
 
 @media screen and (width < 550px) {
-  .container {
+  .large {
     width: 30px;
     height: 30px;
+  }
 
+  .container {
     & svg {
       width: 14px;
       height: 14px;

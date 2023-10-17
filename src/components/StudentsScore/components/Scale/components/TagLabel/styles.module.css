@@ -73,15 +73,3 @@
     background-color: var(--tag-speaking);
   }
 }
-
-@media screen and (width < 550px) {
-  .container {
-    & div {
-      border-width: 6.67px 6.67px 6.67px 0;
-    }
-
-    & span {
-      font-size: 10px;
-    }
-  }
-}

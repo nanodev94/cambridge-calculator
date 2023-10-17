@@ -11,6 +11,14 @@
 }
 
 @media screen and (width < 550px) {
+  .container {
+    order: -1;
+    min-width: 300px;
+    width: 70%;
+    height: 42%;
+    min-height: 400px;
+  }
+
   .studentResult {
     font-size: 20px;
   }
