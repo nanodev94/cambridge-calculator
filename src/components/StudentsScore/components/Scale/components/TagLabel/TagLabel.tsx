@@ -21,15 +21,13 @@ const TagLabel: React.FC<TagLabelProps> = ({ subject, mark }) => {
   const scaleMark = document.getElementById(`scale-mark-${mark}`)
   const heightScaleMarkOrigin = scaleMarkOrigin?.getBoundingClientRect().y ?? 0
   const heightScaleMark = scaleMark?.getBoundingClientRect().y ?? 0
-  const height = heightScaleMarkOrigin - heightScaleMark + 22
+  const height = heightScaleMarkOrigin - heightScaleMark + 12
 
   return (
     <div className={`${container} ${TAG_TYPE[subject]}`} style={{ height: Math.max(height, 0) }}>
       <div />
       <span>
-        {subject}
-        <br />
-        {mark}
+        {subject} {mark}
       </span>
     </div>
   )

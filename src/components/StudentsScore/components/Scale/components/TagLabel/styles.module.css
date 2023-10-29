@@ -6,8 +6,8 @@
 
   & div {
     border-style: solid;
-    border-width: 9px 9px 9px 0;
-    margin-top: 10px;
+    border-width: 5px 5px 5px 0;
+    margin-top: 5px;
     width: 0;
     height: 0;
   }
@@ -15,12 +15,13 @@
   & span {
     border-radius: 5px;
     user-select: none;
-    font-size: 16px;
+    font-size: 12px;
     font-weight: bold;
     overflow: hidden;
-    padding: 0 5px;
+    padding: 3px 5px;
     text-transform: capitalize;
-    width: 90%;
+    text-wrap: nowrap;
+    width: 100%;
   }
 }
 
